@@ -1,0 +1,8 @@
+{
+    "key": "eb377d7667bd80419555a65d248d718c",
+    "base_url": "https://api.openweathermap.org/data/2.5/weather",
+    "params": [
+            "q",
+            "appid"
+    ]
+}

@@ -1,22 +1,54 @@
-import logo from './logo.svg';
+import { useSelector, useDispatch } from 'react-redux';
+
+import {getWeather} from "./actions/weather";
 import './App.css';
 
-function App() {
+const App = () => {
+
+  const weatherList = useSelector(state=>state.weatherReducer);
+  const dispatch = useDispatch();
+
+  const search = (event) => {
+    event.preventDefault();
+    console.log(event.target.city.value);
+    dispatch(getWeather(event.target.city.value));
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <form onSubmit={(event) => {search(event)}}>
+          <input type="text" name="city" />
+          <button>Get</button>
+        </form>
+        <table>
+          <thead>
+            <tr>
+                <th>Ciudad</th>
+                <th>Sensación Térmica</th>
+                <th>Humedad</th>
+                <th>Presión</th>
+                <th>Temperatura</th>
+                <th>Max</th>
+                <th>Min</th>
+              </tr>
+          </thead>
+          <tbody>
+            {weatherList.map(item => {
+              return (
+                <tr key={Math.random()}>
+                  <td>{item.name}</td>
+                  <td>{item.main?.feels_like}</td>
+                  <td>{item.main?.humidity}</td>
+                  <td>{item.main?.pressure}</td>
+                  <td>{item.main?.temp}</td>
+                  <td>{item.main?.temp_max}</td>
+                  <td>{item.main?.temp_min}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
       </header>
     </div>
   );
