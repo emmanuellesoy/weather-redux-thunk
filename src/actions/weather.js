@@ -12,7 +12,7 @@ const get = (data) => ({
 });
 
 export const getWeather = (cityName) => dispatch => {
-    axios(`${api.base_url}?${api.params[0]}=${cityName}&${api.params[1]}=${API_KEY}&units=metric`)
+    axios(`${api.base_url}?q=${cityName}&appid=${API_KEY}&units=metric`)
         .then(response => dispatch(get(response.data)));
 };
 
